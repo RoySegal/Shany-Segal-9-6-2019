@@ -1,0 +1,58 @@
+
+@import '~@angular/material/theming';
+.search-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: space-around;
+}
+
+.results-holder {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: space-around;
+  margin-top: 5vh;
+}
+
+.full-width-form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
+/deep/ .mat-form-field-suffix {
+  top: 5px;
+  color: grey;
+}
+
+.mat-form-field {
+  min-width: 80vw;
+}
+
+.disabled {
+  color: #9E9E9E;
+}
+
+.mat-icon-button.mat-primary {
+  color: #673ab7;
+  margin-top: 15px;
+  margin-left: 10px;
+}
+
+.city-name {
+  align-self: center;
+  font-weight: bolder;
+  font-size: 2vw;
+  margin-bottom: 30px;
+}
+
+.current-weather {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}

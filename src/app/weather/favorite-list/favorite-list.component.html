@@ -1,0 +1,15 @@
+<div class="favorite-holder">
+  <h2>Your Favorite List </h2>
+  <div *ngIf="(allFavorite$ | async).length > 0; else noFavoriteCities">
+    <mat-card *ngFor="let city of allFavoritesWeather">
+      <div>{{city?.cityName}} : <span>{{city?.data?.dayWeather?.main?.temp}} &#8451;</span></div>
+      <button mat-icon-button color="primary" [matTooltip]="'Go To City Weather'" (click)="navigateToCityWeather(city.cityName)">
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
+    </mat-card>
+  </div>
+
+  <ng-template #noFavoriteCities>
+    <div>no favorites</div>
+  </ng-template>
+</div>

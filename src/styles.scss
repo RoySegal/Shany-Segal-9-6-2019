@@ -1,0 +1,34 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  height: 100%
+}
+
+@import '~@angular/material/theming';
+
+// always include only once per project
+@include mat-core();
+
+@import 'theme.scss';
+
+// specify theme class eg: <body class="my-theme"> ... </body>
+.my-theme {
+  @include angular-material-theme($my-theme);
+}
+.my-light-theme {
+  @include angular-material-theme($light-theme);
+}
+
+.my-dark-theme {
+  @include angular-material-theme($dark-theme);
+}
+
+mat-toolbar-row.mat-toolbar-row {
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,0.35) !important;
+}

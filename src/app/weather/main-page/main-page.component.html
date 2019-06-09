@@ -1,0 +1,40 @@
+<div class="search-container">
+  <form [formGroup]="searchForm" class="full-width-form">
+    <mat-form-field appearance="outline" class="search-city">
+      <input matInput placeholder="Search City" formControlName="searchPlace" autofocus>
+      <mat-error *ngIf="!searchForm.valid">* City name must contain only english letters</mat-error>
+      <mat-icon matSuffix class="search-icon">search</mat-icon>
+    </mat-form-field>
+
+    <div class="add-to-favorite" style="align-self: stretch">
+      <button mat-icon-button color="primary" (click)="addToFavorite()" [disabled]="isAddFavoriteDisabled()"
+              [matTooltip]="'Add To Favorite'">
+        <mat-icon [ngClass]="{'disabled': isAddFavoriteDisabled()}" [matTooltip]="isInFavorite? 'City Is In Favorite' : null">favorite</mat-icon>
+      </button>
+      <button mat-icon-button color="primary" (click)="removeFromFavorite()" [disabled]="isRemoveFavoriteDisabled()"
+              [matTooltip]="'Remove From Favorite'">
+        <mat-icon [ngClass]="{'disabled': isRemoveFavoriteDisabled()}" [matTooltip]="isInFavorite? null : 'Item Not In Favorite'">remove_circle_outline</mat-icon>
+      </button>
+    </div>
+
+  </form>
+
+  <div class="results-holder">
+
+    <span class="city-name">
+     {{displayedCityName}}
+    </span>
+
+    <div class="current-weather" *ngIf="daysList?.length > 0">
+      <div class="day">{{currentWeather?.day}}</div>
+      <div class="date">{{currentWeather?.date | date}}</div>
+      <div>{{currentWeather?.dayWeather?.main?.temp_max}}&#8451;</div>
+      <img [src]="'http://openweathermap.org/img/w/'+currentWeather?.dayWeather?.weather[0].icon+'.png'"
+           [matTooltip]="currentWeather?.dayWeather?.weather[0].description"/>
+    </div>
+
+    <weather-results-container [daysWeatherList]="daysList"></weather-results-container>
+
+  </div>
+
+</div>

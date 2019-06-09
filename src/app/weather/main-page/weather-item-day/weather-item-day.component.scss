@@ -1,0 +1,22 @@
+mat-card.day-card {
+  background-image: url("/assets/hot/gradient-beach-sunset-landscape_23-2148183695.jpg/");
+  //background-image: url("/assets/rain/background-with-rain.jpg");
+  //filter:brightness(200%);
+  min-width: 13vw;
+  min-height: 250px;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+  max-width: 250px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.day {
+  font-size: 20px;
+}
