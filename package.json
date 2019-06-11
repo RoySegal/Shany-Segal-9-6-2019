@@ -1,5 +1,5 @@
 {
-  "name": "omdb-searchbox",
+  "name": "Herolo",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -27,6 +27,7 @@
     "hammerjs": "^2.0.8",
     "rxjs": "^6.0.0",
     "tslib": "^1.9.0",
+    "weather-icons": "^1.3.2",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

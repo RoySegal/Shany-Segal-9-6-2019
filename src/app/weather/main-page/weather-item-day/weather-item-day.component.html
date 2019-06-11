@@ -1,7 +1,13 @@
-<mat-card class="day-card">
+<mat-card class="day-card" >
   <div class="day">{{dayWeather.day}}</div>
   <div class="date">{{dayWeather.date | date}}</div>
   <div class="spacer"></div>
-  <div>{{dayWeather?.dayWeather?.main?.temp_max}}&#8451; <span *ngIf="dayWeather?.nightWeather?.main?.temp_min">- {{dayWeather.nightWeather?.main?.temp_min}}&#8451;</span></div>
-  <div class="description"><img [src]="'http://openweathermap.org/img/w/'+dayWeather?.dayWeather?.weather[0].icon+'.png'" [matTooltip]="dayWeather.dayWeather.weather[0].description"/> </div>
+  <div class="temp">{{mainData.temp_max}} &#8451; <span *ngIf="mainData.temp_min">- {{mainData.temp_min}} &#8451;</span></div>
+  <div class="details">
+    <i class="wi wi-hot" matTooltip="humidity"></i>
+    <span>{{mainData.humidity}}%</span>
+    <i class="wi wi-strong-wind" matTooltip="wind speed"></i>
+    <span>{{dayWeather?.dayWeather?.wind?.speed}}</span>
+  </div>
+  <div class="description"> <i color="primary" [ngClass]="'wi '+ iconMapping[dayWeather?.dayWeather?.weather[0]?.icon].icon" [matTooltip]="dayWeather.dayWeather.weather[0].description"></i> </div>
 </mat-card>

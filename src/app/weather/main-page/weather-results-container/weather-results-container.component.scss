@@ -6,3 +6,9 @@
   flex-wrap: wrap;
   margin-top: 20px;
 }
+
+@media screen and (max-width: 800px) {
+  .days-container  {
+    flex-direction: column;
+  }
+}

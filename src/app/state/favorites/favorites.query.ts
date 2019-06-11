@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { FavoriteState, FavoriteStore } from './favorite.store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FavoriteCity } from '../../types/FavoriteCity';
+import { FavoriteCity } from '../../../types/FavoriteCity';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class FavoritesQuery extends QueryEntity<FavoriteState, FavoriteCity> {
   }
 
   isCityInFavorite(cityName: string): boolean {
-    const findItem = this.getAll().filter((cityInStore) => cityInStore.cityName === cityName);
+    const findItem = this.getAll().filter((cityInStore) => cityInStore.cityName === cityName.toLowerCase());
     return findItem.length > 0;
   }
 

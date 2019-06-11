@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DaysListData } from '../weather-service';
+import { WeatherDataByDate } from '../../../../utils/types/WeatherDataByDate';
+import { WeatherService } from '../weather-service';
 
 @Component({
   selector: 'weather-item-day',
@@ -8,11 +9,15 @@ import { DaysListData } from '../weather-service';
 })
 export class WeatherItemDayComponent implements OnInit {
 
-  @Input() dayWeather: DaysListData;
+  @Input() dayWeather: WeatherDataByDate;
+  iconMapping;
+  mainData;
 
-  constructor() { }
+  constructor(private weatherService: WeatherService) { }
 
   ngOnInit() {
+    this.iconMapping = this.weatherService.iconsMapping;
+    this.mainData = this.dayWeather ? this.dayWeather.dayWeather.main : null;
   }
 
 }

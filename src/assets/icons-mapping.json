@@ -1,0 +1,78 @@
+{
+  "01n": {
+    "desciption": "clear sky",
+    "icon": "wi-day-sunny"
+   },
+  "01d": {
+    "desciption": "clear sky",
+    "icon": "wi-day-sunny"
+  },
+  "02d": {
+    "desciption": "few clouds",
+    "icon": "wi-day-cloudy"
+  },
+  "02n": {
+    "desciption": "few clouds",
+    "icon": "wi-night-alt-cloudy"
+  },
+  "03d": {
+    "desciption": "scattered clouds",
+    "icon": "wi-cloud"
+  },
+  "03n": {
+    "desciption": "scattered clouds",
+    "icon": "wi-cloud"
+  },
+  "04d": {
+    "desciption": "broken clouds",
+    "icon": "wi-cloudy"
+  },
+  "04n": {
+    "desciption": "broken clouds",
+    "icon": "wi-cloudy"
+  },
+  "09d": {
+    "desciption": "shower rain",
+    "icon": "wi-day-rain"
+  },
+  "09n": {
+    "desciption": "shower rain",
+    "icon": "wi-night-alt-hail"
+  },
+  "10d": {
+    "desciption": "rain",
+    "icon": "wi-rain-mix"
+  },
+  "10n": {
+    "desciption": "rain",
+    "icon": "wi-rain-mix"
+  },
+  "11d": {
+    "desciption": "thunderstorm",
+    "icon": "wi-thunderstorm"
+  },
+  "11n": {
+    "desciption": "thunderstorm",
+    "icon": "wi-thunderstorm"
+  },
+  "13d": {
+    "desciption": "snow",
+    "icon": "wi-snow"
+  },
+  "13n": {
+    "desciption": "snow",
+    "icon": "wi-snow"
+  },
+  "50d": {
+    "desciption": "mist",
+    "icon": "wi-day-fog"
+  },
+  "50n": {
+    "desciption": "mist",
+    "icon": "wi-night-fog"
+  }
+
+
+
+
+}

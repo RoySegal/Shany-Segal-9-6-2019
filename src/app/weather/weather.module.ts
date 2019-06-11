@@ -16,6 +16,7 @@ import {
 import { ReactiveFormsModule } from '@angular/forms';
 import { WeatherResultsContainerComponent } from './main-page/weather-results-container/weather-results-container.component';
 import { WeatherItemDayComponent } from './main-page/weather-item-day/weather-item-day.component';
+import { CityFormComponent } from './main-page/city-form/city-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home' },
@@ -28,7 +29,7 @@ const routes: Routes = [
 @NgModule({
   entryComponents: [
   ],
-  declarations: [FavoriteListComponent, MainPageComponent, WeatherResultsContainerComponent, WeatherItemDayComponent],
+  declarations: [FavoriteListComponent, MainPageComponent, WeatherResultsContainerComponent, WeatherItemDayComponent, CityFormComponent],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,

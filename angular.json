@@ -12,7 +12,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/OMDB-searchbox",
+            "outputPath": "dist/",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -23,6 +23,7 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "./node_modules/weather-icons/css/weather-icons.min.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -124,5 +125,5 @@
       }
     }
   },
-  "defaultProject": "OMDB-searchbox"
+  "defaultProject": "Herolo"
 }

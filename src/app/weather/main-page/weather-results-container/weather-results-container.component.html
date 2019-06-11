@@ -1,3 +1,3 @@
-<div class="days-container">
-  <weather-item-day *ngFor="let day of daysWeatherList" [dayWeather]="day"></weather-item-day>
+<div [@listAnimation] = daysWeatherList?.length class="days-container">
+    <weather-item-day *ngFor="let item of daysWeatherList" [dayWeather]="item"></weather-item-day>
 </div>

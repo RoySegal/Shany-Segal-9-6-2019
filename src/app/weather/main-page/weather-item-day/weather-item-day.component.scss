@@ -1,16 +1,12 @@
 mat-card.day-card {
-  background-image: url("/assets/hot/gradient-beach-sunset-landscape_23-2148183695.jpg/");
-  //background-image: url("/assets/rain/background-with-rain.jpg");
-  //filter:brightness(200%);
-  min-width: 13vw;
+  min-width: 200px;
   min-height: 250px;
-  margin-left: 20px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
-  max-width: 250px;
+  max-width: 200px;
 }
 
 .spacer {
@@ -19,4 +15,27 @@ mat-card.day-card {
 
 .day {
   font-size: 20px;
+}
+
+.description {
+  font-size: 25px;
+  color: #673ab7;
+}
+
+@media screen and (max-width: 800px) {
+  mat-card.day-card {
+    margin-top: 10px;
+  }
+}
+
+.wi-strong-wind {
+  margin-left: 10px;
+}
+
+.details {
+  margin: 3px 0 3px 0;
+}
+
+.temp {
+  font-size: 18px;
 }

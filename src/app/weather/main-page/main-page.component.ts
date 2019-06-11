@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { onlyEnglishLetters } from '../../../utils/regex/onlyEnglishLetters';
-import { DaysListData, WeatherService } from './weather-service';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { WeatherService } from './weather-service';
 import { MatDialog } from '@angular/material';
 import { ErrorModalComponent } from '../../error-modal/error-modal.component';
 import { ActivatedRoute } from '@angular/router';
 import { FavoritesQuery } from '../../state/favorites/favorites.query';
+import { WeatherDataByDate } from '../../../utils/types/WeatherDataByDate';
+import { CityFormComponent } from './city-form/city-form.component';
 
 @Component({
   selector: 'main-page',
@@ -15,107 +14,100 @@ import { FavoritesQuery } from '../../state/favorites/favorites.query';
 })
 export class MainPageComponent implements OnInit {
 
-  searchForm: FormGroup;
-  daysList: DaysListData[];
+  daysList: WeatherDataByDate[];
   defaultCity = 'Tel Aviv';
-  currentWeather: DaysListData;
-  isInFavorite = false;
+  defaultLong;
+  defaultLat;
+  currentWeather: WeatherDataByDate;
   displayedCityName: string;
+  cityInForm: string;
 
-  constructor(private fb: FormBuilder,
-              public dialog: MatDialog,
+  @ViewChild(CityFormComponent) cityForm: CityFormComponent;
+
+  constructor(public dialog: MatDialog,
               public activatedRoute: ActivatedRoute,
-              private favoriteQuery: FavoritesQuery,
-              private weatherService: WeatherService) { }
+              private weatherService: WeatherService,
+              private cdr: ChangeDetectorRef) {
+  }
 
   ngOnInit() {
-    this.initForm();
-    this.initSearch();
-    this.listenToInputChange();
+    this.setDefaultCity();
+  }
+
+  setDefaultCity() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.defaultLat = position.coords.latitude;
+        this.defaultLong = position.coords.longitude;
+        this.weatherService.getWeatherByLatLong(this.defaultLat, this.defaultLong).subscribe((res: any) => {
+          this.defaultCity = res.city.name;
+          this.initSearch();
+        });
+      }, (err) => {
+        this.initSearch();
+      }, { timeout: 100000 });
+    } else {
+      this.initSearch();
+    }
   }
 
   initSearch() {
-  this.activatedRoute.paramMap
-    .subscribe(() => {
-      if(window.history.state && window.history.state.cityName) {
-        const name = window.history.state.cityName;
-        this.searchForm.controls.searchPlace.patchValue(name);
-        this.getWeatherByCity(name);
-        this.getCurrentWeather(name);
-      } else {
-        this.getWeatherByCity(this.defaultCity);
-        this.getCurrentWeather(this.defaultCity);
-      }
-    });
-
+    this.activatedRoute.paramMap
+      .subscribe(() => {
+        if (this.routeFromFavorites()) {
+          this.cityInForm = window.history.state.cityName;
+          this.getWeatherByCity(name);
+          this.getCurrentWeather(name);
+        } else {
+          this.getWeatherDataByDefualt();
+        }
+      });
   }
 
-  initForm() {
-    this.searchForm = this.fb.group ({
-      searchPlace: ['',  Validators.pattern(onlyEnglishLetters)],
-    });
+  getWeatherDataByDefualt() {
+    this.getWeatherByCity(this.defaultCity);
+    this.getCurrentWeather(this.defaultCity);
+  }
+
+  routeFromFavorites() {
+    return window.history.state && window.history.state.cityName;
   }
 
   getCurrentWeather(cityName) {
     this.weatherService.getCurrentWeather(cityName).subscribe((current) => {
       this.displayedCityName = cityName;
       this.currentWeather = current;
-    })
+    });
   }
 
   getWeatherByCity(cityName: string) {
     cityName !== '' && this.weatherService.getWeatherItemsByCity(cityName).subscribe((res) => {
-      if (res) this.daysList = this.weatherService.parseDataByDate(res.list);
-      this.isInFavorite = this.favoriteQuery.isCityInFavorite(cityName);
+      if (res) {
+        this.daysList = this.weatherService.parseDataByDate(res.list);
+      }
+     this.cityForm.isCityInFavorite(cityName);
     }, (error) => {
       this.openDialog();
     });
   }
 
-  listenToInputChange() {
-      this.searchForm
-        .get('searchPlace')
-        .valueChanges
-        .pipe(distinctUntilChanged(), debounceTime(1500))
-        .subscribe(value => {
-          this.daysList = [];
-          this.displayedCityName = '';
-          if (this.searchForm.valid &&  value !== '') {
-            this.getWeatherByCity(value);
-            this.getCurrentWeather(value);
-          }
-        }) ;
+  onInputChange(value) {
+    if(this.cityForm.searchForm.valid && value !== '') {
+      this.daysList = [];
+      this.displayedCityName = '';
+      this.getWeatherByCity(value);
+      this.getCurrentWeather(value);
+    }
   }
 
   openDialog(): void {
-    this.searchForm.controls.searchPlace.patchValue('');
+    this.cityInForm = '';
     this.displayedCityName = '';
     const dialogRef = this.dialog.open(ErrorModalComponent);
-
     dialogRef.afterClosed().subscribe(result => {
       this.displayedCityName = '';
       this.daysList = [];
     });
-  }
-
-  isAddFavoriteDisabled(): boolean {
-    return !this.searchForm.valid ||
-      this.searchForm.get('searchPlace').value === '' || this.isInFavorite;
-  }
-
-  isRemoveFavoriteDisabled(): boolean {
-    return !this.searchForm.valid ||
-      this.searchForm.get('searchPlace').value === '' || !this.isInFavorite;
-  }
-
-  addToFavorite() {
-    this.weatherService.addCityToFavorite(this.searchForm.get('searchPlace').value);
-    this.isInFavorite = true;
-  }
-
-  removeFromFavorite() {
-    this.weatherService.removeFromFavorite(this.searchForm.get('searchPlace').value);
-    this.isInFavorite = false;
   }
 
 }

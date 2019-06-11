@@ -2,6 +2,15 @@
 
 html, body {
   height: 100%;
+  background-image: url("/assets/hot/background1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media screen and (max-width: 800px) {
+  html, body{
+    background-repeat: repeat;
+  }
 }
 
 body {
